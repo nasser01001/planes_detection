@@ -24,7 +24,7 @@ import os
 import json
 # import cv2
 import random
-
+from yolov7.models.experimental import attempt_load
 # os.system("python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
 
 # import detectron2
@@ -95,11 +95,7 @@ if cfg_enable_url_download:
     url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
     cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
 
-def attempt_download(file, repo='WongKinYiu/yolov7'):
-    # Attempt file download if does not exist
-    file = Path(str(file).strip().replace("'", '').lower())
 
-from models.experimental import attempt_load
 
 
 
