@@ -22,7 +22,7 @@ from pathlib import Path
 import sys
 import os
 import json
-import cv2
+# import cv2
 import random
 
 os.system("python -m pip install -e detectron2")
@@ -149,9 +149,9 @@ def imageInput(src):
                 if image_file is not None :
 
     
-                    im=cv2.imread("upload.png")
+                    im= Image.open("upload.png")
                     outputs = predictor(im)
-                    v = Visualizer(im[:, :, ::-1],
+                    v = Visualizer(im,
                             metadata=my_dataset_train_metadata, 
                             scale=0.8
                              )
@@ -210,10 +210,10 @@ def imageInput(src):
                 
 
                 #--Display predicton
-                im=cv2.imread(image_file)
+                im= Image.open(image_file)
                 # im = cv2.imread(imageName)
                 outputs = predictor(im)
-                v = Visualizer(im[:, :, ::-1],
+                v = Visualizer(im,
                         metadata=my_dataset_train_metadata, 
                         scale=0.8
                          )
