@@ -27,16 +27,16 @@ import random
 
 # os.system("python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
 
-import detectron2
-from detectron2.utils.logger import setup_logger
-setup_logger()
-from detectron2 import model_zoo
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
-from detectron2.structures import BoxMode
-from detectron2.data.datasets import register_coco_instances
+# import detectron2
+# from detectron2.utils.logger import setup_logger
+# setup_logger()
+# from detectron2 import model_zoo
+# from detectron2.engine import DefaultPredictor
+# from detectron2.config import get_cfg
+# from detectron2.utils.visualizer import Visualizer
+# from detectron2.data import MetadataCatalog, DatasetCatalog
+# from detectron2.structures import BoxMode
+# from detectron2.data.datasets import register_coco_instances
 
 # import torch
 # torch.__version__
@@ -45,38 +45,38 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-from detectron2.data.datasets import register_coco_instances
+# from detectron2.data.datasets import register_coco_instances
 
-try:
-    register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
+# try:
+#     register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
     
-except:
-    print("already registered")
-my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
+# except:
+#     print("already registered")
+# my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
     
 
-cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
-cfg.MODEL.DEVICE = 'cpu'
-cfg.DATASETS.TRAIN = ("my_dataset_train",)
-cfg.DATALOADER.NUM_WORKERS = 4
-cfg.MODEL.WEIGHTS = "model_final.pth"
-cfg.SOLVER.IMS_PER_BATCH = 4
-cfg.SOLVER.BASE_LR = 0.001
-cfg.SOLVER.WARMUP_ITERS = 1000
-cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
-cfg.SOLVER.STEPS = (1000, 1500)
-cfg.SOLVER.GAMMA = 0.05
+# cfg = get_cfg()
+# cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
+# cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
+# cfg.MODEL.DEVICE = 'cpu'
+# cfg.DATASETS.TRAIN = ("my_dataset_train",)
+# cfg.DATALOADER.NUM_WORKERS = 4
+# cfg.MODEL.WEIGHTS = "model_final.pth"
+# cfg.SOLVER.IMS_PER_BATCH = 4
+# cfg.SOLVER.BASE_LR = 0.001
+# cfg.SOLVER.WARMUP_ITERS = 1000
+# cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
+# cfg.SOLVER.STEPS = (1000, 1500)
+# cfg.SOLVER.GAMMA = 0.05
 
 
 
 
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
+# cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
+# cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
 
-cfg.TEST.EVAL_PERIOD = 500
-predictor = DefaultPredictor(cfg)
+# cfg.TEST.EVAL_PERIOD = 500
+# predictor = DefaultPredictor(cfg)
 
 
 
@@ -130,33 +130,33 @@ def imageInput(src):
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
-            # col5, col6 = st.columns(2)
-            # with col5:
-            #     img = Image.open(image_file)
-            #     st.image(img, caption='Selected Image', use_column_width='always')
-            # with col6:            
-            #     if image_file is not None and submit:
-            #         #--Display predicton
-            #         os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
-            #         img_ = Image.open("result_r.png")
-            #         st.image(img_, caption='Plane Detection YoloR')    
-
-            col7, col8 = st.columns(2)
-            with col7:
+            col5, col6 = st.columns(2)
+            with col5:
                 img = Image.open(image_file)
                 st.image(img, caption='Selected Image', use_column_width='always')
-            with col8:            
-                if image_file is not None :
+            with col6:            
+                if image_file is not None and submit:
+                    #--Display predicton
+                    os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
+                    img_ = Image.open("result_r.png")
+                    st.image(img_, caption='Plane Detection YoloR')    
+
+#             col7, col8 = st.columns(2)
+#             with col7:
+#                 img = Image.open(image_file)
+#                 st.image(img, caption='Selected Image', use_column_width='always')
+#             with col8:            
+#                 if image_file is not None :
 
     
-                    im= Image.open("upload.png")
-                    outputs = predictor(im)
-                    v = Visualizer(im,
-                            metadata=my_dataset_train_metadata, 
-                            scale=0.8
-                             )
-                    out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-                    st.image(out.get_image(), caption='Plane Detection Faster rcnn')
+#                     im= Image.open("upload.png")
+#                     outputs = predictor(im)
+#                     v = Visualizer(im,
+#                             metadata=my_dataset_train_metadata, 
+#                             scale=0.8
+#                              )
+#                     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+#                     st.image(out.get_image(), caption='Plane Detection Faster rcnn')
             
             
 
@@ -201,24 +201,24 @@ def imageInput(src):
                
         
         
-        col7, col8 = st.columns(2)
-        with col7:
-            img = Image.open(image_file)
-            st.image(img, caption='Selected Image', use_column_width='always')
-        with col8:            
-            if image_file is not None and submit:
+#         col7, col8 = st.columns(2)
+#         with col7:
+#             img = Image.open(image_file)
+#             st.image(img, caption='Selected Image', use_column_width='always')
+#         with col8:            
+#             if image_file is not None and submit:
                 
 
-                #--Display predicton
-                im= Image.open(image_file)
-                # im = cv2.imread(imageName)
-                outputs = predictor(im)
-                v = Visualizer(im,
-                        metadata=my_dataset_train_metadata, 
-                        scale=0.8
-                         )
-                out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-                st.image(out.get_image(), caption='Plane Detection Faster rcnn')
+#                 #--Display predicton
+#                 im= Image.open(image_file)
+#                 # im = cv2.imread(imageName)
+#                 outputs = predictor(im)
+#                 v = Visualizer(im,
+#                         metadata=my_dataset_train_metadata, 
+#                         scale=0.8
+#                          )
+#                 out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+#                 st.image(out.get_image(), caption='Plane Detection Faster rcnn')
 
         col5, col6 = st.columns(2)
         with col5:
