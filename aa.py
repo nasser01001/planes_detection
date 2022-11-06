@@ -133,7 +133,7 @@ def imageInput(src):
 
    
                     model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
-                    model.cuda() if device == 'cuda' else model.cpu()
+                    model.cpu()
                     pred = model(imgpath)
                     pred.render()  # render bbox in image
                     for im in pred.imgs:
