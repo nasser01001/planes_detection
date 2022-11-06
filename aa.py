@@ -24,6 +24,7 @@ import os
 import json
 # import cv2
 import random
+sys.path.insert(0, './yolov7')
 from yolov7.models.experimental import attempt_load
 # os.system("python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
 
