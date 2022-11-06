@@ -16,72 +16,72 @@ import os
 import wget
 import time
 
-
+import cv2
 from pathlib import Path
 
 import sys
-import detectron2
-from detectron2.utils.logger import setup_logger
-setup_logger()
-from detectron2 import model_zoo
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
-from detectron2.structures import BoxMode
-from detectron2.data.datasets import register_coco_instances
+# import detectron2
+# from detectron2.utils.logger import setup_logger
+# setup_logger()
+# from detectron2 import model_zoo
+# from detectron2.engine import DefaultPredictor
+# from detectron2.config import get_cfg
+# from detectron2.utils.visualizer import Visualizer
+# from detectron2.data import MetadataCatalog, DatasetCatalog
+# from detectron2.structures import BoxMode
+# from detectron2.data.datasets import register_coco_instances
 
 # import torch
 # torch.__version__
 import torchvision
 import numpy as np
-import os, json, cv2, random
+import os, json, random
 import matplotlib.pyplot as plt
 
-from detectron2.data.datasets import register_coco_instances
+# from detectron2.data.datasets import register_coco_instances
 
-try:
-    register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
+# try:
+#     register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
     
-except:
-    print("already registered")
-my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
+# except:
+#     print("already registered")
+# my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
     
 
-cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
-cfg.MODEL.DEVICE = 'cpu'
-cfg.DATASETS.TRAIN = ("my_dataset_train",)
-cfg.DATALOADER.NUM_WORKERS = 4
-cfg.MODEL.WEIGHTS = "model_final.pth"
-cfg.SOLVER.IMS_PER_BATCH = 4
-cfg.SOLVER.BASE_LR = 0.001
-cfg.SOLVER.WARMUP_ITERS = 1000
-cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
-cfg.SOLVER.STEPS = (1000, 1500)
-cfg.SOLVER.GAMMA = 0.05
+# cfg = get_cfg()
+# cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
+# cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
+# cfg.MODEL.DEVICE = 'cpu'
+# cfg.DATASETS.TRAIN = ("my_dataset_train",)
+# cfg.DATALOADER.NUM_WORKERS = 4
+# cfg.MODEL.WEIGHTS = "model_final.pth"
+# cfg.SOLVER.IMS_PER_BATCH = 4
+# cfg.SOLVER.BASE_LR = 0.001
+# cfg.SOLVER.WARMUP_ITERS = 1000
+# cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
+# cfg.SOLVER.STEPS = (1000, 1500)
+# cfg.SOLVER.GAMMA = 0.05
 
 
 
 
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
+# cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
+# cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
 
-cfg.TEST.EVAL_PERIOD = 500
-predictor = DefaultPredictor(cfg)
-
-
+# cfg.TEST.EVAL_PERIOD = 500
+# predictor = DefaultPredictor(cfg)
 
 
 
-## CFG
-cfg_model_path = "models/yourModel.pt" 
 
-cfg_enable_url_download = True
-if cfg_enable_url_download:
-    url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
-    cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
+
+# ## CFG
+# cfg_model_path = "models/yourModel.pt" 
+
+# cfg_enable_url_download = True
+# if cfg_enable_url_download:
+#     url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
+#     cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
 
 
 
@@ -106,7 +106,7 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("/home/appuser/venv/bin/python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
@@ -119,7 +119,7 @@ def imageInput(src):
                 if image_file is not None :
 
    
-                    os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("/home/appuser/venv/bin/python ./yolov5_detect/detect.py --weights best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
@@ -157,7 +157,7 @@ def imageInput(src):
     elif src == 'From test set.': 
         
         # Image selector slider
-        imgpath = glob.glob('.\pic\*')
+        imgpath = glob.glob('./pic/*')
         imgsel = st.slider('Select random images from test set.', min_value=1, max_value=len(imgpath), step=1) 
         image_file = imgpath[imgsel-1]
         submit = st.button("Detect")
@@ -172,7 +172,7 @@ def imageInput(src):
             if image_file is not None and submit:
                 
                 
-                os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format(image_file))
+                os.system("/home/appuser/venv/bin/python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format(image_file))
                 #--Display predicton
                 img_ = Image.open('./result_v7.png')
                 st.image(img_, caption='Plane Detection Yolov7')
@@ -188,7 +188,8 @@ def imageInput(src):
 
 
                 #--Display predicton
-                os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format(image_file))
+                
+                os.system("/home/appuser/venv/bin/python ./yolov5_detect/detect.py --weights best.pt --img 416 --conf 0.4 --source {}".format(image_file))
                 img_ = Image.open("result.png")
                 st.image(img_, caption='Plane Detection Yolov5')
                
