@@ -20,6 +20,9 @@ import time
 from pathlib import Path
 
 import sys
+import os, json, cv2, random
+
+os.system("python -m pip install -e detectron2")
 
 import detectron2
 from detectron2.detectron2.utils.logger import setup_logger
@@ -36,7 +39,7 @@ from detectron2.detectron2.data.datasets import register_coco_instances
 # torch.__version__
 import torchvision
 import numpy as np
-import os, json, cv2, random
+
 import matplotlib.pyplot as plt
 
 from detectron2.data.datasets import register_coco_instances
