@@ -42,6 +42,4 @@ st_btn_select
 # pycocotools>=2.0  # COCO mAP
 # roboflow
 wget
-Cython
-thop
-pycocotools==2.0  # COCO mAP
+
