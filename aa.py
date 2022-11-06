@@ -21,7 +21,7 @@ from pathlib import Path
 
 import sys
 
-import detectron2
+import detectron2.detectron2 as detectron2
 from detectron2.utils.logger import setup_logger
 setup_logger()
 from detectron2 import model_zoo
