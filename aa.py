@@ -118,8 +118,8 @@ def imageInput(src):
             
                 if image_file is not None :
 
-                    subprocess.run(["python", "yolov7/detect.py"])
-#                     os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+#                     subprocess.run(["python", "yolov7/detect.py"])
+                    os.system("python yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
 #                     subprocess.run([f"{sys.executable}", "yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
 #                     model = torch.hub.load('yolov7','custom',path="yolov7_best.pt",force_reload=True)
