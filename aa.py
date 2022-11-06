@@ -132,7 +132,16 @@ def imageInput(src):
                 if image_file is not None :
 
    
-                    os.system("python /app/planes_detection/yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    model = torch.hub.load('ultralytics/yolov5', 'custom', path='models/yoloTrained.pt', force_reload=True) 
+                    model.cuda() if device == 'cuda' else model.cpu()
+                    pred = model(imgpath)
+                    pred.render()  # render bbox in image
+                    for im in pred.imgs:
+                        im_base64 = Image.fromarray(im)
+                        im_base64.save("result.png")
+
+            #--Display predicton
+            
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
