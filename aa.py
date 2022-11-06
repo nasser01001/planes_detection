@@ -136,9 +136,9 @@ def imageInput(src):
                     model.cpu()
                     pred = model("upload.png")
                     pred.render()  # render bbox in image
-                    for im in pred.imgs:
-                        im_base64 = Image.fromarray(im)
-                        im_base64.save("result.png")
+                    
+                    im_base64 = Image.fromarray(im)
+                    im_base64.save("result.png")
 
             #--Display predicton
             
