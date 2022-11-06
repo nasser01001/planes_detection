@@ -2,7 +2,7 @@
 # Usage: pip install -r requirements.txt
 
 # Base ----------------------------------------
-install 'git+https://github.com/facebookresearch/detectron2.git'
+git+https://github.com/facebookresearch/detectron2.git
 matplotlib>=3.2.2
 numpy>=1.18.5
 opencv-python-headless
