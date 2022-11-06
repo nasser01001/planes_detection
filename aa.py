@@ -120,7 +120,7 @@ def imageInput(src):
 
 #                     os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
-                    subprocess.run([f"{sys.executable}", "./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
+                    subprocess.run([f"{sys.executable}", "yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
                 
