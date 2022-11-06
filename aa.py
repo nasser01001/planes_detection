@@ -123,16 +123,16 @@ def imageInput(src):
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
-            # col5, col6 = st.columns(2)
-            # with col5:
-            #     img = Image.open(image_file)
-            #     st.image(img, caption='Selected Image', use_column_width='always')
-            # with col6:            
-            #     if image_file is not None and submit:
-            #         #--Display predicton
-            #         os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
-            #         img_ = Image.open("result_r.png")
-            #         st.image(img_, caption='Plane Detection YoloR')    
+            col5, col6 = st.columns(2)
+            with col5:
+                img = Image.open(image_file)
+                st.image(img, caption='Selected Image', use_column_width='always')
+            with col6:            
+                if image_file is not None and submit:
+                    #--Display predicton
+                    os.system("/home/appuser/venv/bin/python ./yolor_detect/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor_detect/cfg/yolor_p6.cfg --names ./yolor_detect/data/coco.names --source {}".format("upload.png"))
+                    img_ = Image.open("result_r.png")
+                    st.image(img_, caption='Plane Detection YoloR')    
 
             col7, col8 = st.columns(2)
             with col7:
@@ -195,24 +195,24 @@ def imageInput(src):
                
         
         
-        col7, col8 = st.columns(2)
-        with col7:
-            img = Image.open(image_file)
-            st.image(img, caption='Selected Image', use_column_width='always')
-        with col8:            
-            if image_file is not None and submit:
+#         col7, col8 = st.columns(2)
+#         with col7:
+#             img = Image.open(image_file)
+#             st.image(img, caption='Selected Image', use_column_width='always')
+#         with col8:            
+#             if image_file is not None and submit:
                 
 
-                #--Display predicton
-                im=cv2.imread(image_file)
-                # im = cv2.imread(imageName)
-                outputs = predictor(im)
-                v = Visualizer(im[:, :, ::-1],
-                        metadata=my_dataset_train_metadata, 
-                        scale=0.8
-                         )
-                out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-                st.image(out.get_image(), caption='Plane Detection Faster rcnn')
+#                 #--Display predicton
+#                 im=cv2.imread(image_file)
+#                 # im = cv2.imread(imageName)
+#                 outputs = predictor(im)
+#                 v = Visualizer(im[:, :, ::-1],
+#                         metadata=my_dataset_train_metadata, 
+#                         scale=0.8
+#                          )
+#                 out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+#                 st.image(out.get_image(), caption='Plane Detection Faster rcnn')
 
         col5, col6 = st.columns(2)
         with col5:
@@ -223,7 +223,7 @@ def imageInput(src):
                 
                 
                 #--Display predicton
-                os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
+                os.system("/home/appuser/venv/bin/python ./yolor_detect/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor_detect/cfg/yolor_p6.cfg --names ./yolor_detect/data/coco.names --source {}".format(image_file))
                 img_ = Image.open("result_r.png")
                 st.image(img_, caption='Plane Detection YoloR')
 
