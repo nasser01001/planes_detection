@@ -25,7 +25,7 @@ import json
 # import cv2
 import random
 
-os.system("python -m pip install -e detectron2")
+# os.system("python -m pip install -e detectron2")
 
 import detectron2
 from detectron2.utils.logger import setup_logger
