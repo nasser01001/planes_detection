@@ -25,7 +25,7 @@ import json
 # import cv2
 import random
 
-os.system("python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
+# os.system("python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
 
 import detectron2
 from detectron2.utils.logger import setup_logger
