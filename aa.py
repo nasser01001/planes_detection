@@ -40,48 +40,48 @@ import matplotlib.pyplot as plt
 
 # from detectron2.data.datasets import register_coco_instances
 
-try:
-    register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
+# try:
+#     register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
     
-except:
-    print("already registered")
-my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
+# except:
+#     print("already registered")
+# my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
     
 
-cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
-cfg.MODEL.DEVICE = 'cpu'
-cfg.DATASETS.TRAIN = ("my_dataset_train",)
-cfg.DATALOADER.NUM_WORKERS = 4
-cfg.MODEL.WEIGHTS = "model_final.pth"
-cfg.SOLVER.IMS_PER_BATCH = 4
-cfg.SOLVER.BASE_LR = 0.001
-cfg.SOLVER.WARMUP_ITERS = 1000
-cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
-cfg.SOLVER.STEPS = (1000, 1500)
-cfg.SOLVER.GAMMA = 0.05
+# cfg = get_cfg()
+# cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
+# cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
+# cfg.MODEL.DEVICE = 'cpu'
+# cfg.DATASETS.TRAIN = ("my_dataset_train",)
+# cfg.DATALOADER.NUM_WORKERS = 4
+# cfg.MODEL.WEIGHTS = "model_final.pth"
+# cfg.SOLVER.IMS_PER_BATCH = 4
+# cfg.SOLVER.BASE_LR = 0.001
+# cfg.SOLVER.WARMUP_ITERS = 1000
+# cfg.SOLVER.MAX_ITER = 1500 #adjust up if val mAP is still rising, adjust down if overfit
+# cfg.SOLVER.STEPS = (1000, 1500)
+# cfg.SOLVER.GAMMA = 0.05
 
 
 
 
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
+# cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 64
+# cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
 
-cfg.TEST.EVAL_PERIOD = 500
-predictor = DefaultPredictor(cfg)
-
-
+# cfg.TEST.EVAL_PERIOD = 500
+# predictor = DefaultPredictor(cfg)
 
 
 
-## CFG
-cfg_model_path = "models/yourModel.pt" 
 
-cfg_enable_url_download = True
-if cfg_enable_url_download:
-    url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
-    cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
+
+# ## CFG
+# cfg_model_path = "models/yourModel.pt" 
+
+# cfg_enable_url_download = True
+# if cfg_enable_url_download:
+#     url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
+#     cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
 
 
 
