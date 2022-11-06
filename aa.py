@@ -119,7 +119,7 @@ def imageInput(src):
                 if image_file is not None :
 
    
-                    os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("/home/appuser/venv/bin/python ./yolov5_detect/detect.py --weights best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
@@ -157,7 +157,7 @@ def imageInput(src):
     elif src == 'From test set.': 
         
         # Image selector slider
-        imgpath = glob.glob('.\pic\*')
+        imgpath = glob.glob('./pic/*')
         imgsel = st.slider('Select random images from test set.', min_value=1, max_value=len(imgpath), step=1) 
         image_file = imgpath[imgsel-1]
         submit = st.button("Detect")
@@ -172,7 +172,7 @@ def imageInput(src):
             if image_file is not None and submit:
                 
                 
-                os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format(image_file))
+                os.system("/home/appuser/venv/bin/python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format(image_file))
                 #--Display predicton
                 img_ = Image.open('./result_v7.png')
                 st.image(img_, caption='Plane Detection Yolov7')
@@ -188,7 +188,8 @@ def imageInput(src):
 
 
                 #--Display predicton
-                os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format(image_file))
+                
+                os.system("/home/appuser/venv/bin/python ./yolov5_detect/detect.py --weights best.pt --img 416 --conf 0.4 --source {}".format(image_file))
                 img_ = Image.open("result.png")
                 st.image(img_, caption='Plane Detection Yolov5')
                
