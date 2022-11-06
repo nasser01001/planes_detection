@@ -144,7 +144,8 @@ def imageInput(src):
 #                         im_base64 = Image.fromarray(im)
 #                         im_base64.save("result_v7.png")
                     model = attempt_load("yolov7_best.pt", map_location='cpu')
-                    pred = model("upload.png")
+                    img = Image.open("upload.png")
+                    pred = model(img)
                     pred.render()  # render bbox in image
                     for im in pred.ims:
                         im_base64 = Image.fromarray(im)
