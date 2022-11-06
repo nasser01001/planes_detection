@@ -20,25 +20,25 @@ import time
 from pathlib import Path
 
 import sys
-import detectron2
-from detectron2.utils.logger import setup_logger
-setup_logger()
-from detectron2 import model_zoo
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
-from detectron2.structures import BoxMode
-from detectron2.data.datasets import register_coco_instances
+# import detectron2
+# from detectron2.utils.logger import setup_logger
+# setup_logger()
+# from detectron2 import model_zoo
+# from detectron2.engine import DefaultPredictor
+# from detectron2.config import get_cfg
+# from detectron2.utils.visualizer import Visualizer
+# from detectron2.data import MetadataCatalog, DatasetCatalog
+# from detectron2.structures import BoxMode
+# from detectron2.data.datasets import register_coco_instances
 
 # import torch
 # torch.__version__
 import torchvision
 import numpy as np
-import os, json, cv2, random
+import os, json, random
 import matplotlib.pyplot as plt
 
-from detectron2.data.datasets import register_coco_instances
+# from detectron2.data.datasets import register_coco_instances
 
 try:
     register_coco_instances("my_dataset_train", {}, "./data/_annotations.coco.json", "./data")
@@ -106,7 +106,7 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
