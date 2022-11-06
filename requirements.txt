@@ -43,4 +43,4 @@ st_btn_select
 # roboflow
 wget
 
-install -e ./detectron2
+install -e ./detectron2/detectron2
