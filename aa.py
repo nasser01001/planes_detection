@@ -20,7 +20,10 @@ import time
 from pathlib import Path
 
 import sys
-import os, json, cv2, random
+import os
+import json
+import cv2
+import random
 
 os.system("python -m pip install -e detectron2")
 
