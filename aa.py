@@ -135,7 +135,7 @@ def imageInput(src):
                 img = Image.open(image_file)
                 st.image(img, caption='Selected Image', use_column_width='always')
             with col6:            
-                if image_file is not None and submit:
+                if image_file is not None :
                     #--Display predicton
                     os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
                     img_ = Image.open("result_r.png")
@@ -164,7 +164,7 @@ def imageInput(src):
     elif src == 'From test set.': 
         
         # Image selector slider
-        imgpath = glob.glob('.\pic\*')
+        imgpath = glob.glob('./pic/*')
         imgsel = st.slider('Select random images from test set.', min_value=1, max_value=len(imgpath), step=1) 
         image_file = imgpath[imgsel-1]
         submit = st.button("Detect")
