@@ -134,7 +134,7 @@ def imageInput(src):
    
                     model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
                     model.cpu()
-                    pred = model(imgpath)
+                    pred = model("upload.png")
                     pred.render()  # render bbox in image
                     for im in pred.imgs:
                         im_base64 = Image.fromarray(im)
