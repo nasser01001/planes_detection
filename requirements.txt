@@ -44,3 +44,4 @@ st_btn_select
 wget
 
 install -e ./detectron2/detectron2
+install -U git+https://github.com/facebookresearch/fvcore.git
