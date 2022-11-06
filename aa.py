@@ -121,7 +121,7 @@ def imageInput(src):
 #                     os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
 #                     subprocess.run([f"{sys.executable}", "yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
-                    model = torch.hub.load('WongKinYiu/yolov7','custom',path="yolov7_best.pt",force_reload=True)
+                    model = torch.hub.load('./yolov7','custom',path="yolov7_best.pt",force_reload=True)
                     model.cpu()
                     pred = model("upload.png")
                     pred.render()  # render bbox in image
