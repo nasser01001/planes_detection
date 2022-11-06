@@ -95,7 +95,9 @@ if cfg_enable_url_download:
     url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
     cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
 
-
+def attempt_download(file, repo='WongKinYiu/yolov7'):
+    # Attempt file download if does not exist
+    file = Path(str(file).strip().replace("'", '').lower())
 
 
 
@@ -121,8 +123,9 @@ def imageInput(src):
 #                     os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
 #                     subprocess.run([f"{sys.executable}", "yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
-                    model = torch.hub.load('./yolov7','custom',path="yolov7_best.pt",force_reload=True)
-                    model.cpu()
+#                     model = torch.hub.load('yolov7','custom',path="yolov7_best.pt",force_reload=True)
+                    model = attempt_load('yolov7_best.pt', map_location='cpu')
+#                     model.cpu()
                     pred = model("upload.png")
                     pred.render()  # render bbox in image
 
