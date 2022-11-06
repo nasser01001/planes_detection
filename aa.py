@@ -7,6 +7,7 @@
 
 import streamlit as st
 import torch
+import torchvision.transforms as transforms
 
 from PIL import Image
 from io import *
@@ -74,7 +75,9 @@ from models.experimental import attempt_load
 #     print("already registered")
 # my_dataset_train_metadata = MetadataCatalog.get("my_dataset_train")
     
-
+transform = transforms.Compose([
+    transforms.PILToTensor()
+])
 # cfg = get_cfg()
 # cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
 # cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
@@ -144,8 +147,10 @@ def imageInput(src):
 #                         im_base64 = Image.fromarray(im)
 #                         im_base64.save("result_v7.png")
                     model = attempt_load("yolov7_best.pt", map_location='cpu')
+    
                     img = Image.open("upload.png")
-                    pred = model(img)
+                    img_tensor = transform(img)
+                    pred = model(img_tensor)
                     pred.render()  # render bbox in image
                     for im in pred.ims:
                         im_base64 = Image.fromarray(im)
