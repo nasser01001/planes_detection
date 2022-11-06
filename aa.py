@@ -52,7 +52,25 @@ import subprocess
 import sys
 
 
+if not os.path.isdir("yolov7"):
+    yolov7_repo_url = "https://github.com/WongKinYiu/yolov7"
+    os.system(f"git clone {yolov7_repo_url}")
+    # Fix import errors
+    for file in [
+        "yolov7/models/common.py",
+        "yolov7/models/experimental.py",
+        "yolov7/models/yolo.py",
+        "yolov7/utils/datasets.py",
+    ]:
+        prepend_text(file, "import sys\nsys.path.insert(0, './yolov7')")
 
+from yolov7.models.experimental import attempt_load  # type: ignore
+from yolov7.utils.datasets import letterbox  # type: ignore
+from yolov7.utils.general import check_img_size  # type: ignore
+from yolov7.utils.general import non_max_suppression  # type: ignore
+from yolov7.utils.general import scale_coords  # type: ignore
+from yolov7.utils.plots import plot_one_box  # type: ignore
+from yolov7.utils.torch_utils import TracedModel, select_device 
 # from detectron2.data.datasets import register_coco_instances
 
 # try:
@@ -91,12 +109,12 @@ import sys
 
 
 ## CFG
-cfg_model_path = "models/yourModel.pt" 
+# cfg_model_path = "models/yourModel.pt" 
 
-cfg_enable_url_download = True
-if cfg_enable_url_download:
-    url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
-    cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
+# cfg_enable_url_download = True
+# if cfg_enable_url_download:
+#     url = "https://archive.org/download/yoloTrained/yoloTrained.pt" #Configure this if you set cfg_enable_url_download to True
+#     cfg_model_path = f"models/{url.split('/')[-1:]}" #config model path from url name
 
 
 
@@ -131,7 +149,7 @@ def imageInput(src):
 #                     for im in pred.imgs:
 #                         im_base64 = Image.fromarray(im)
 #                         im_base64.save("result_v7.png")
-                    model = torch.load('yolov7_best.pt', map_location='cpu')['model']
+                    model = attempt_load("yolov7_best.pt", map_location='cpu')
                     pred = model("upload.png")
                     pred.render()  # render bbox in image
                     for im in pred.ims:
