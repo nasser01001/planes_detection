@@ -28,15 +28,15 @@ import random
 os.system("python -m pip install -e detectron2")
 
 import detectron2
-from detectron2.detectron2.utils.logger import setup_logger
+from detectron2.utils.logger import setup_logger
 setup_logger()
 from detectron2 import model_zoo
-from detectron2.detectron2.engine import DefaultPredictor
-from detectron2.detectron2.config import get_cfg
-from detectron2.detectron2.utils.visualizer import Visualizer
-from detectron2.detectron2.data import MetadataCatalog, DatasetCatalog
-from detectron2.detectron2.structures import BoxMode
-from detectron2.detectron2.data.datasets import register_coco_instances
+from detectron2.engine import DefaultPredictor
+from detectron2.config import get_cfg
+from detectron2.utils.visualizer import Visualizer
+from detectron2.data import MetadataCatalog, DatasetCatalog
+from detectron2.structures import BoxMode
+from detectron2.data.datasets import register_coco_instances
 
 # import torch
 # torch.__version__
