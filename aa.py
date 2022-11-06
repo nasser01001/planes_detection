@@ -223,7 +223,7 @@ def imageInput(src):
                 
                 
                 #--Display predicton
-                os.system("/home/appuser/venv/bin/python ./yolor_detect/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor_detect/cfg/yolor_p6.cfg --names ./yolor_detect/data/coco.names --source {}".format(image_file))
+                os.system("/home/appuser/venv/bin/python ./yolor_detect/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --cfg ./yolor_detect/cfg/yolor_p6.cfg --names ./yolor_detect/data/coco.names --source {}".format(image_file))
                 img_ = Image.open("result_r.png")
                 st.image(img_, caption='Plane Detection YoloR')
 
