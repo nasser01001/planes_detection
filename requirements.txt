@@ -43,5 +43,5 @@ st_btn_select
 # roboflow
 wget
 
-install -e ./detectron2/detectron2
+git+https://github.com/facebookresearch/detectron2.git
 git+https://github.com/facebookresearch/fvcore.git
