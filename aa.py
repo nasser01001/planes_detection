@@ -106,7 +106,7 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("/home/appuser/venv/bin/python ./yolov7_detect/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
