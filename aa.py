@@ -45,6 +45,11 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+import subprocess
+import sys
+
+
+
 # from detectron2.data.datasets import register_coco_instances
 
 # try:
@@ -113,8 +118,9 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python /app/planes_detection/yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+#                     os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
+                    subprocess.run([f"{sys.executable}", "./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
                 
