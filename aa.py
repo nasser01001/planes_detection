@@ -119,7 +119,7 @@ def imageInput(src):
                 if image_file is not None :
 
 #                     subprocess.run(["python", "yolov7/detect.py"])
-                    os.system("python yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+#                     os.system("python yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
 #                     subprocess.run([f"{sys.executable}", "yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png")])
 #                     model = torch.hub.load('yolov7','custom',path="yolov7_best.pt",force_reload=True)
@@ -131,6 +131,12 @@ def imageInput(src):
 #                     for im in pred.imgs:
 #                         im_base64 = Image.fromarray(im)
 #                         im_base64.save("result_v7.png")
+                    model = torch.load('yolov7_best.pt', map_location='cpu')['model']
+                    pred = model("upload.png")
+                    pred.render()  # render bbox in image
+                    for im in pred.ims:
+                        im_base64 = Image.fromarray(im)
+                        im_base64.save("result_v7.png")
                     img_ = Image.open('result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
                 
