@@ -13,6 +13,7 @@ from io import *
 import glob
 from datetime import datetime
 import os
+os.system("/home/appuser/venv/bin/python -m pip install -e detectron2")
 import wget
 import time
 
