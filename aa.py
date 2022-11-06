@@ -113,7 +113,7 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("python /yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Plane Detection Yolov7')
@@ -126,7 +126,7 @@ def imageInput(src):
                 if image_file is not None :
 
    
-                    os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("python /yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Plane Detection Yolov5')
                                         
@@ -137,7 +137,7 @@ def imageInput(src):
             with col6:            
                 if image_file is not None :
                     #--Display predicton
-                    os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
+                    os.system("python /yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
                     img_ = Image.open("result_r.png")
                     st.image(img_, caption='Plane Detection YoloR')    
 
