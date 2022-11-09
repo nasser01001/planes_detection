@@ -1,13 +1,11 @@
 name: detectron2
 channels:
-  - pytorch
   - conda-forge
-  - anaconda
-  - defaults
 dependencies:
   - numpy
   - pywin32
   - cudatoolkit=11.0
+  - pytorch
   - torch>=1.7.0
   - torchvision>=0.8.1
   - git
@@ -15,5 +13,3 @@ dependencies:
   - pip:
     - git+https://github.com/facebookresearch/detectron2.git@v0.3
     - install -e detectron2
-    - torch>=1.7.0
-    - torchvision>=0.8.1
