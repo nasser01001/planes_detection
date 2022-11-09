@@ -83,4 +83,5 @@ tzlocal==4.2
 uritemplate==4.1.1
 validators==0.20.0
 wget==3.2
-detectron2
+git+https://github.com/facebookresearch/detectron2.git
+install -e detectron2
