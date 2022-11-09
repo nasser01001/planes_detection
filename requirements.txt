@@ -75,8 +75,8 @@ tf-estimator-nightly==2.8.0.dev2021122109
 thop==0.1.1-2209072238
 timm==0.6.11
 torch==1.13.0
-torchaudio==0.10.1+cu113
-torchvision==0.11.2+cu113
+torchaudio>=0.10.1+cu113
+torchvision>=0.11.2+cu113
 typer==0.4.1
 tzdata==2022.5
 tzlocal==4.2
