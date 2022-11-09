@@ -5,12 +5,11 @@ channels:
   - anaconda
   - defaults
 dependencies:
-  - python=3.8
   - numpy
   - pywin32
   - cudatoolkit=11.0
-  - pytorch==1.7.1
-  - torchvision
+  - torch>=1.7.0
+  - torchvision>=0.8.1
   - git
   - pip
   - pip:
