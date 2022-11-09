@@ -4,10 +4,10 @@ channels:
 dependencies:
   - numpy
   - pywin32
-  - cudatoolkit=11.0
+  - cudatoolkit
   - pytorch
-  - torch>=1.7.0
-  - torchvision>=0.8.1
+  - torch
+  - torchvision
   - git
   - pip
   - pip:
