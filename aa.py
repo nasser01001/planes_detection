@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 
 import sys
-os.system("/home/appuser/venv/bin/python -m pip install -e detectron2")
+os.system("/home/appuser/venv/bin/python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'")
 import detectron2
 from detectron2.utils.logger import setup_logger
 setup_logger()
