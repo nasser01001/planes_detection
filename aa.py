@@ -19,40 +19,39 @@ import time
 from pathlib import Path
 
 import sys
-# import detectron2
-# from detectron2.utils.logger import setup_logger
-# setup_logger()
-# from detectron2 import model_zoo
-# from detectron2.engine import DefaultPredictor
-# from detectron2.config import get_cfg
-# from detectron2.utils.visualizer import Visualizer
-# from detectron2.data import MetadataCatalog, DatasetCatalog
-# from detectron2.structures import BoxMode
-# from detectron2.data.datasets import register_coco_instances
+import detectron2
+from detectron2.utils.logger import setup_logger
+setup_logger()
+from detectron2 import model_zoo
+from detectron2.engine import DefaultPredictor
+from detectron2.config import get_cfg
+from detectron2.utils.visualizer import Visualizer
+from detectron2.data import MetadataCatalog, DatasetCatalog
+from detectron2.structures import BoxMode
+from detectron2.data.datasets import register_coco_instances
 
-# import torch
-# torch.__version__
+
 import torchvision
 import numpy as np
 import os, json, cv2, random
 import matplotlib.pyplot as plt
 
-# from detectron2.data.datasets import register_coco_instances
+from detectron2.data.datasets import register_coco_instances
 
 class Metadata:
     def get(self, _):
         return ['plane','plane']
     
 
-# cfg = get_cfg()
-# cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
-# cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
-# cfg.MODEL.DEVICE = 'cpu'
-# cfg.MODEL.WEIGHTS = "model_final.pth"
+cfg = get_cfg()
+cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
+cfg.MODEL.DEVICE = 'cpu'
+cfg.MODEL.WEIGHTS = "model_final.pth"
 
-# cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 2 #your number of classes + 1
 
-# predictor = DefaultPredictor(cfg)
+predictor = DefaultPredictor(cfg)
 
 
 
@@ -91,22 +90,22 @@ def imageInput(src):
                     st.image(img_, caption='Planes Detection Yolov5')
                                         
 
-            # col5, col6 = st.columns(2)
-            # with col5:
-            #     img = Image.open(image_file)
-            #     st.image(img, caption='Selected Image', use_column_width='always')
-            # with col6:            
-            #     if image_file is not None :
+            col5, col6 = st.columns(2)
+            with col5:
+                img = Image.open(image_file)
+                st.image(img, caption='Selected Image', use_column_width='always')
+            with col6:            
+                if image_file is not None :
 
     
-            #         im=cv2.imread("upload.png")
-            #         outputs = predictor(im)
-            #         v = Visualizer(im[:, :, ::-1],
-            #                 metadata=Metadata, 
-            #                 scale=0.8
-            #                  )
-            #         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-            #         st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
+                    im=cv2.imread("upload.png")
+                    outputs = predictor(im)
+                    v = Visualizer(im[:, :, ::-1],
+                            metadata=Metadata, 
+                            scale=0.8
+                             )
+                    out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+                    st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
 
             
         #     col7, col8 = st.columns(2)
@@ -164,23 +163,23 @@ def imageInput(src):
                
         
         
-        # col7, col8 = st.columns(2)
-        # with col7:
-        #     img = Image.open(image_file)
-        #     st.image(img, caption='Selected Image', use_column_width='always')
-        # with col8:            
-        #     if image_file is not None and submit:
+        col7, col8 = st.columns(2)
+        with col7:
+            img = Image.open(image_file)
+            st.image(img, caption='Selected Image', use_column_width='always')
+        with col8:            
+            if image_file is not None and submit:
                 
 
-        #         #--Display predicton
-        #         im=cv2.imread(image_file)
-        #         outputs = predictor(im)
-        #         v = Visualizer(im[:, :, ::-1],
-        #                 metadata=Metadata, 
-        #                 scale=0.8
-        #                  )
-        #         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-        #         st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
+                #--Display predicton
+                im=cv2.imread(image_file)
+                outputs = predictor(im)
+                v = Visualizer(im[:, :, ::-1],
+                        metadata=Metadata, 
+                        scale=0.8
+                         )
+                out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+                st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
 
         # col5, col6 = st.columns(2)
         # with col5:
