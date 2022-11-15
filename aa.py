@@ -5,19 +5,15 @@
 
 
 import streamlit as st
-import torch
-
 from PIL import Image
 from io import *
 import glob
-from datetime import datetime
 import os
-import wget
-import time
+
+
 
 
 from pathlib import Path
-
 import sys
 import detectron2
 from detectron2.utils.logger import setup_logger
@@ -26,15 +22,11 @@ from detectron2 import model_zoo
 from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
-from detectron2.structures import BoxMode
-from detectron2.data.datasets import register_coco_instances
 
 
-import torchvision
-import numpy as np
-import os, json, cv2, random
-import matplotlib.pyplot as plt
+
+import os, cv2
+
 
 from detectron2.data.datasets import register_coco_instances
 
@@ -72,20 +64,20 @@ def imageInput(src):
                 if image_file is not None :
 
 
-                    os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 1000 --conf 0.4 --source {}".format("upload.png"))
                     #--Display predicton
                     img_ = Image.open('./result_v7.png')
                     st.image(img_, caption='Planes Detection Yolov7')
                 
             col3, col4 = st.columns(2)
-            with col1:
+            with col3:
                 img = Image.open(image_file)
                 st.image(img, caption='Selected Image', use_column_width='always')
-            with col2:            
+            with col4:            
                 if image_file is not None :
 
    
-                    os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format("upload.png"))
+                    os.system("python ./yolov5/detect.py --weights Best.pt --img 1000 --conf 0.4 --source {}".format("upload.png"))
                     img_ = Image.open("result.png")
                     st.image(img_, caption='Planes Detection Yolov5')
                                         
@@ -100,7 +92,7 @@ def imageInput(src):
     
                     im=cv2.imread("upload.png")
                     outputs = predictor(im)
-                    v = Visualizer(im[:, :, ::-1],
+                    v = Visualizer(im[:, :, ::],
                             metadata=Metadata, 
                             scale=0.8
                              )
@@ -108,18 +100,7 @@ def imageInput(src):
                     st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
 
             
-        #     col7, col8 = st.columns(2)
-        # with col7:
-        #     img = Image.open(image_file)
-        #     st.image(img, caption='Selected Image', use_column_width='always')
-        # with col8:            
-        #     if image_file is not None:
-                
-                
-        #         #--Display predicton
-        #         os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
-        #         img_ = Image.open("result_r.png")
-        #         st.image(img_, caption='Model Prediction_YoloR') 
+        
             
 
                 
@@ -131,6 +112,18 @@ def imageInput(src):
         image_file = imgpath[imgsel-1]
         submit = st.button("Detect")
 
+        col1, col2 = st.columns(2)
+        with col1:
+            img = Image.open(image_file)
+            st.image(img, caption='Selected Image', use_column_width='always')
+        with col2:            
+            if image_file is not None and submit:
+
+
+                #--Display predicton
+                os.system("python ./yolov5/detect.py --weights best.pt --img 1000 --conf 0.4 --source {}".format(image_file))
+                img_ = Image.open("result.png")
+                st.image(img_, caption='Planes Detection Yolov5')
 
         col3, col4 = st.columns(2)
         with col3:
@@ -141,26 +134,11 @@ def imageInput(src):
             if image_file is not None and submit:
                 
                 
-                os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 416 --conf 0.4 --source {}".format(image_file))
+                os.system("python ./yolov7/detect.py --weights yolov7_best.pt --img 800 --conf 0.4 --source {}".format(image_file))
                 #--Display predicton
                 img_ = Image.open('./result_v7.png')
                 st.image(img_, caption='Planes Detection Yolov7')
-                    
-                    
-          
-        col1, col2 = st.columns(2)
-        with col1:
-            img = Image.open(image_file)
-            st.image(img, caption='Selected Image', use_column_width='always')
-        with col2:            
-            if image_file is not None and submit:
-
-
-                #--Display predicton
-                os.system("python ./yolov5/detect.py --weights Best.pt --img 416 --conf 0.4 --source {}".format(image_file))
-                img_ = Image.open("result.png")
-                st.image(img_, caption='Planes Detection Yolov5')
-               
+                                 
         
         
         col7, col8 = st.columns(2)
@@ -181,18 +159,6 @@ def imageInput(src):
                 out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
                 st.image(out.get_image(), caption='Planes Detection Faster R-CNN')
 
-        # col5, col6 = st.columns(2)
-        # with col5:
-        #     img = Image.open(image_file)
-        #     st.image(img, caption='Selected Image', use_column_width='always')
-        # with col6:            
-        #     if image_file is not None and submit:
-                
-                
-        #         #--Display predicton
-        #         os.system("python ./yolor/detect.py --weights yolor_p6.pt --img 416 --conf 0.4 --device cpu --cfg ./yolor/cfg/yolor_p6.cfg --names ./yolor/data/coco.names --source {}".format(image_file))
-        #         img_ = Image.open("result_r.png")
-        #         st.image(img_, caption='Model Prediction_YoloR') 
 
 
 
@@ -215,7 +181,5 @@ imageInput(datasrc)
 
     
 
-# if __name__ == '__main__':
-  
-#     main()
+
 
